@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -54,6 +55,11 @@ const Navigation = () => {
               RPJ
             </a>
 
+            {/* Theme Toggle - Center on mobile, visible always */}
+            <div className="md:hidden">
+              <ThemeToggle />
+            </div>
+
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
               {navItems.map((item) => (
@@ -75,6 +81,7 @@ const Navigation = () => {
                   )}
                 </a>
               ))}
+              <ThemeToggle />
             </div>
 
             {/* Mobile Menu Button */}
