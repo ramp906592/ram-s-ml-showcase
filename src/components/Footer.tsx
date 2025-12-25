@@ -15,8 +15,8 @@ const Footer = () => {
               RPJ.
             </a>
             <p className="text-muted-foreground text-sm flex items-center gap-1 justify-center md:justify-start">
-              © {currentYear} Ram Prakash Jha. Built with{" "}
-              <Heart className="w-4 h-4 text-primary inline" />
+              © {currentYear} Ram Prakash Jha.
+             
             </p>
           </div>
 
