@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { Button } from "./ui/button";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -20,7 +21,6 @@ const Navigation = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
-      // Update active section based on scroll position
       const sections = navItems.map((item) => item.href.slice(1));
       for (const section of sections.reverse()) {
         const element = document.getElementById(section);
@@ -54,43 +54,40 @@ const Navigation = () => {
             <motion.a 
               href="#home" 
               className="text-xl font-bold gradient-text"
-              whileHover={{ scale: 1.1 }}
+              whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              RPJ
+              RPJ.
             </motion.a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item, index) => (
-                <motion.a
+              {navItems.map((item) => (
+                <a
                   key={item.name}
                   href={item.href}
-                  initial={{ opacity: 0, y: -20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.1 }}
-                  className={`relative text-sm font-medium transition-colors duration-300 ${
+                  className={`text-sm font-medium transition-colors duration-300 ${
                     activeSection === item.href.slice(1)
                       ? "text-primary"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
                   {item.name}
-                  {activeSection === item.href.slice(1) && (
-                    <motion.span
-                      layoutId="activeSection"
-                      className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
-                    />
-                  )}
-                </motion.a>
+                </a>
               ))}
+            </div>
+
+            {/* CTA Button */}
+            <div className="hidden md:block">
+              <Button size="sm" asChild>
+                <a href="#contact">Let's Talk</a>
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2 rounded-lg glass-card"
+              className="md:hidden p-2 rounded-lg border border-border"
             >
               {isMobileMenuOpen ? (
                 <X className="w-5 h-5" />
@@ -109,7 +106,7 @@ const Navigation = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed inset-0 z-40 pt-20 bg-background/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-40 pt-20 bg-background/98 backdrop-blur-xl md:hidden"
           >
             <div className="container mx-auto px-6 py-8">
               <div className="flex flex-col gap-6">
@@ -123,13 +120,18 @@ const Navigation = () => {
                     onClick={() => setIsMobileMenuOpen(false)}
                     className={`text-2xl font-semibold ${
                       activeSection === item.href.slice(1)
-                        ? "gradient-text"
+                        ? "text-primary"
                         : "text-muted-foreground"
                     }`}
                   >
                     {item.name}
                   </motion.a>
                 ))}
+                <Button size="lg" className="mt-4" asChild>
+                  <a href="#contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    Let's Talk
+                  </a>
+                </Button>
               </div>
             </div>
           </motion.div>

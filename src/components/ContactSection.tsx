@@ -57,7 +57,6 @@ const ContactSection = () => {
 
         <div className="max-w-4xl mx-auto">
           <div className="grid md:grid-cols-2 gap-8">
-            {/* Contact Info */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
@@ -67,8 +66,8 @@ const ContactSection = () => {
               {contactInfo.map((item, index) => {
                 const Icon = item.icon;
                 const CardContent = (
-                  <div className="glass-card rounded-xl p-5 flex items-center gap-4 group hover:bg-secondary/40 transition-all duration-300">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
+                  <div className="glass-card rounded-xl p-5 flex items-center gap-4 group hover:bg-secondary/50 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                       <Icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
@@ -105,12 +104,11 @@ const ContactSection = () => {
               })}
             </motion.div>
 
-            {/* CTA Card */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 }}
-              className="glass-card gradient-border rounded-2xl p-8 flex flex-col justify-center"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="glass-card gradient-border rounded-xl p-8 flex flex-col justify-center"
             >
               <h3 className="text-2xl font-semibold mb-4">
                 Ready to work together?

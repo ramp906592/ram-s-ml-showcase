@@ -21,7 +21,7 @@ const ExperienceSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="experience" className="py-24 relative">
+    <section id="experience" className="py-24 relative bg-secondary/20">
       <div className="container mx-auto px-6" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -41,12 +41,11 @@ const ExperienceSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
-            className="glass-card gradient-border rounded-2xl p-8 hover:bg-secondary/30 transition-all duration-300"
+            transition={{ duration: 0.5 }}
+            className="glass-card gradient-border rounded-xl p-8 hover:bg-secondary/40 transition-all duration-300"
           >
-            {/* Header */}
             <div className="flex items-start gap-6 mb-6">
-              <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+              <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0">
                 <Briefcase className="w-7 h-7 text-primary" />
               </div>
               <div>
@@ -59,17 +58,15 @@ const ExperienceSection = () => {
               </div>
             </div>
 
-            {/* Period Badges */}
             <div className="flex flex-wrap gap-3 mb-8">
-              <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
+              <span className="px-4 py-2 rounded-md bg-primary/10 text-primary text-sm font-medium border border-primary/20">
                 {experience.period}
               </span>
-              <span className="px-4 py-2 rounded-full bg-secondary text-muted-foreground text-sm font-medium border border-border">
+              <span className="px-4 py-2 rounded-md bg-secondary text-muted-foreground text-sm font-medium border border-border">
                 {experience.type}
               </span>
             </div>
 
-            {/* Highlights */}
             <ul className="space-y-4">
               {experience.highlights.map((highlight, i) => (
                 <motion.li

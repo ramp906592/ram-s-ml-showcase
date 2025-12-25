@@ -41,7 +41,7 @@ const SkillsSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="skills" className="py-24 relative">
+    <section id="skills" className="py-24 relative bg-secondary/20">
       <div className="container mx-auto px-6" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -70,9 +70,9 @@ const SkillsSection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ y: -4 }}
-                className="glass-card gradient-border rounded-2xl p-6 group hover:bg-secondary/40 transition-all duration-300"
+                className="glass-card gradient-border rounded-xl p-6 group hover:bg-secondary/50 transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
+                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/20 transition-colors">
                   <Icon className="w-6 h-6 text-primary" />
                 </div>
                 
@@ -84,7 +84,7 @@ const SkillsSection = () => {
                   {category.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-3 py-1.5 rounded-lg text-sm font-medium bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+                      className="px-3 py-1.5 rounded-md text-sm font-medium bg-secondary text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
                     >
                       {skill}
                     </span>
