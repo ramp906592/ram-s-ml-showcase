@@ -17,7 +17,7 @@ const projects = [
     icon: Heart,
     liveUrl: "https://heartdiseasdetector.streamlit.app/",
     githubUrl: "https://github.com/ramp906592/HEART_DISEAS_DETECTOR",
-    previewImage: productReviewImg,
+    previewImage: heartDiseaseImg,
   },
   {
     title: "Email Spam Detection System",
@@ -37,7 +37,7 @@ const projects = [
     icon: Star,
     liveUrl: "https://review-sentiment-ai.streamlit.app/",
     githubUrl: "https://github.com/ramp906592/PRODUCT_REVIEW",
-    previewImage: heartDiseaseImg,
+    previewImage: productReviewImg,
   },
 ];
 
@@ -84,14 +84,14 @@ const ProjectsSection = () => {
             }}
           >
             <div className="relative">
-              <div className="w-72 h-44 rounded-xl overflow-hidden border-2 border-primary/50 shadow-2xl shadow-primary/40 bg-card">
+              <div className="w-52 h-32 rounded-lg overflow-hidden border-2 border-primary/50 shadow-xl shadow-primary/30 bg-card">
                 <img
                   src={currentImage}
                   alt="Project preview"
                   className="w-full h-full object-cover object-top"
                 />
               </div>
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-background/30 to-transparent" />
+              <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background/30 to-transparent" />
             </div>
           </motion.div>
         )}
