@@ -1,8 +1,12 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ExternalLink, Github, Heart, Mail, Star } from "lucide-react";
 import { Button } from "./ui/button";
+
+import heartDiseaseImg from "@/assets/projects/heart-disease.png";
+import emailSpamImg from "@/assets/projects/email-spam.png";
+import productReviewImg from "@/assets/projects/product-review.png";
 
 const projects = [
   {
@@ -13,6 +17,7 @@ const projects = [
     icon: Heart,
     liveUrl: "https://heartdiseasdetector.streamlit.app/",
     githubUrl: "https://github.com/ramp906592/HEART_DISEAS_DETECTOR",
+    previewImage: heartDiseaseImg,
   },
   {
     title: "Email Spam Detection System",
@@ -22,6 +27,7 @@ const projects = [
     icon: Mail,
     liveUrl: "https://emailspamdetector31.streamlit.app/",
     githubUrl: "https://github.com/ramp906592/EMAIL_SPAM",
+    previewImage: emailSpamImg,
   },
   {
     title: "Product Review Sentiment Analysis",
@@ -31,12 +37,24 @@ const projects = [
     icon: Star,
     liveUrl: "https://review-sentiment-ai.streamlit.app/",
     githubUrl: "https://github.com/ramp906592/PRODUCT_REVIEW",
+    previewImage: productReviewImg,
   },
 ];
 
 const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setMousePosition({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+    setHoveredIndex(index);
+  };
 
   return (
     <section id="projects" className="py-24 relative">
@@ -69,8 +87,38 @@ const ProjectsSection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 whileHover={{ y: -6 }}
-                className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300"
+                className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300 relative"
+                onMouseMove={(e) => handleMouseMove(e, index)}
+                onMouseLeave={() => setHoveredIndex(null)}
               >
+                {/* Preview Image Popup */}
+                <AnimatePresence>
+                  {hoveredIndex === index && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.8, y: 10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, y: 10 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute z-50 pointer-events-none"
+                      style={{
+                        left: Math.min(mousePosition.x, 150),
+                        top: mousePosition.y - 180,
+                      }}
+                    >
+                      <div className="relative">
+                        <div className="w-64 h-40 rounded-lg overflow-hidden border-2 border-primary/30 shadow-2xl shadow-primary/20">
+                          <img
+                            src={project.previewImage}
+                            alt={`${project.title} preview`}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        </div>
+                        <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background/60 to-transparent" />
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                   <Icon className="w-7 h-7 text-primary" />
                 </div>
