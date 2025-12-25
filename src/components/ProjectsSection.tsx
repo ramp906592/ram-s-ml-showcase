@@ -44,8 +44,15 @@ const ProjectsSection = () => {
 
   return (
     <section id="projects" className="py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[200px]" />
+      {/* Animated Background */}
+      <motion.div 
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[200px]"
+        animate={{
+          scale: [1, 1.3, 1],
+          rotate: [0, 180, 360],
+        }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+      />
 
       <div className="container mx-auto px-6" ref={ref}>
         <motion.div
@@ -54,89 +61,149 @@ const ProjectsSection = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block">
+          <motion.span 
+            className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={isInView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ delay: 0.2, type: "spring" }}
+          >
             Featured Work
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          </motion.span>
+          <motion.h2 
+            className="text-4xl md:text-5xl font-bold mb-6"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: 0.3 }}
+          >
             My <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          </motion.h2>
+          <motion.p 
+            className="text-muted-foreground max-w-2xl mx-auto"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.4 }}
+          >
             End-to-end machine learning projects showcasing practical applications of AI and data science.
-          </p>
+          </motion.p>
         </motion.div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {projects.map((project, index) => {
             const Icon = project.icon;
+            const isHovered = hoveredIndex === index;
+            
             return (
               <motion.div
                 key={project.title}
-                initial={{ opacity: 0, y: 50 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.15 }}
+                initial={{ opacity: 0, y: 80, rotateX: -20 }}
+                animate={isInView ? { opacity: 1, y: 0, rotateX: 0 } : {}}
+                transition={{ 
+                  duration: 0.7, 
+                  delay: index * 0.2,
+                  type: "spring",
+                  stiffness: 80
+                }}
                 onMouseEnter={() => setHoveredIndex(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
                 className="group relative"
+                style={{ perspective: "1000px" }}
               >
-                <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl`} />
+                {/* Glow effect on hover */}
+                <motion.div 
+                  className={`absolute inset-0 bg-gradient-to-br ${project.gradient} rounded-2xl blur-xl`}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isHovered ? 0.8 : 0 }}
+                  transition={{ duration: 0.3 }}
+                />
                 
-                <div className="relative glass-card gradient-border rounded-2xl p-6 h-full flex flex-col transition-all duration-500 group-hover:translate-y-[-4px] group-hover:shadow-2xl">
-                  {/* Icon */}
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <motion.div 
+                  className="relative glass-card gradient-border rounded-2xl p-6 h-full flex flex-col transition-all duration-500"
+                  animate={{
+                    y: isHovered ? -8 : 0,
+                    rotateY: isHovered ? 5 : 0,
+                  }}
+                  transition={{ duration: 0.3 }}
+                  style={{ transformStyle: "preserve-3d" }}
+                >
+                  {/* Animated Icon */}
+                  <motion.div 
+                    className="w-14 h-14 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center mb-6"
+                    animate={{
+                      rotate: isHovered ? [0, -10, 10, 0] : 0,
+                      scale: isHovered ? 1.15 : 1,
+                    }}
+                    transition={{ duration: 0.5 }}
+                  >
                     <Icon className="w-7 h-7 text-primary" />
-                  </div>
+                  </motion.div>
 
                   {/* Content */}
-                  <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                  <motion.h3 
+                    className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors"
+                    animate={{ x: isHovered ? 5 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
                     {project.title}
-                  </h3>
+                  </motion.h3>
                   
                   <p className="text-muted-foreground text-sm mb-4 flex-grow">
                     {project.description}
                   </p>
 
                   {/* Accuracy Badge */}
-                  <div className="mb-4">
-                    <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                  <motion.div 
+                    className="mb-4"
+                    animate={{ scale: isHovered ? 1.05 : 1 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium animate-glow-pulse">
                       {project.accuracy}
                     </span>
-                  </div>
+                  </motion.div>
 
-                  {/* Tech Stack */}
+                  {/* Tech Stack with staggered animation */}
                   <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tech.map((tech) => (
-                      <span
+                    {project.tech.map((tech, techIndex) => (
+                      <motion.span
                         key={tech}
-                        className="px-2 py-1 rounded-md bg-secondary text-muted-foreground text-xs font-medium"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={isInView ? { opacity: 1, scale: 1 } : {}}
+                        transition={{ delay: 0.5 + index * 0.1 + techIndex * 0.05 }}
+                        whileHover={{ scale: 1.1, y: -2 }}
+                        className="px-2 py-1 rounded-md bg-secondary text-muted-foreground text-xs font-medium hover:bg-primary/20 hover:text-primary transition-colors cursor-default"
                       >
                         {tech}
-                      </span>
+                      </motion.span>
                     ))}
                   </div>
 
                   {/* Buttons */}
                   <div className="flex gap-3 mt-auto">
-                    <Button
-                      size="sm"
-                      className="flex-1 group/btn"
-                      asChild
-                    >
-                      <a href={project.liveUrl}>
-                        <ExternalLink className="w-4 h-4 mr-2" />
-                        Live Demo
-                      </a>
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      asChild
-                    >
-                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                        <Github className="w-4 h-4" />
-                      </a>
-                    </Button>
+                    <motion.div className="flex-1" whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                      <Button
+                        size="sm"
+                        className="w-full group/btn glow-effect"
+                        asChild
+                      >
+                        <a href={project.liveUrl}>
+                          <ExternalLink className="w-4 h-4 mr-2 group-hover/btn:rotate-12 transition-transform" />
+                          Live Demo
+                        </a>
+                      </Button>
+                    </motion.div>
+                    <motion.div whileHover={{ scale: 1.1, rotate: 5 }} whileTap={{ scale: 0.9 }}>
+                      <Button
+                        size="sm"
+                        variant="outline"
+                        asChild
+                      >
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Github className="w-4 h-4" />
+                        </a>
+                      </Button>
+                    </motion.div>
                   </div>
-                </div>
+                </motion.div>
               </motion.div>
             );
           })}

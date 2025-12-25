@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import ThemeToggle from "./ThemeToggle";
 
 const navItems = [
   { name: "Home", href: "#home" },
@@ -44,6 +43,7 @@ const Navigation = () => {
       <motion.nav
         initial={{ y: -100 }}
         animate={{ y: 0 }}
+        transition={{ type: "spring", stiffness: 100, damping: 20 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled ? "glass-card border-b border-border/50" : ""
         }`}
@@ -51,21 +51,25 @@ const Navigation = () => {
         <div className="container mx-auto px-6">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <a href="#home" className="text-xl font-bold gradient-text">
+            <motion.a 
+              href="#home" 
+              className="text-xl font-bold gradient-text"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
               RPJ
-            </a>
-
-            {/* Theme Toggle - Center on mobile, visible always */}
-            <div className="md:hidden">
-              <ThemeToggle />
-            </div>
+            </motion.a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navItems.map((item) => (
-                <a
+              {navItems.map((item, index) => (
+                <motion.a
                   key={item.name}
                   href={item.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.1 }}
                   className={`relative text-sm font-medium transition-colors duration-300 ${
                     activeSection === item.href.slice(1)
                       ? "text-primary"
@@ -79,9 +83,8 @@ const Navigation = () => {
                       className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
                     />
                   )}
-                </a>
+                </motion.a>
               ))}
-              <ThemeToggle />
             </div>
 
             {/* Mobile Menu Button */}
