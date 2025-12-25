@@ -128,21 +128,11 @@ const ContactSection = () => {
                     Send Me an Email
                   </a>
                 </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="w-full"
-                  onClick={() => {
-                    const link = document.createElement('a');
-                    link.href = '/resume.pdf';
-                    link.download = 'Ram_Prakash_Jha_Resume.pdf';
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                  }}
-                >
-                  <Download className="w-4 h-4 mr-2" />
-                  Download Resume
+                <Button size="lg" variant="outline" className="w-full" asChild>
+                  <a href="https://github.com/ramp906592/Resume/raw/main/RAM_RESUME.pdf" target="_blank" rel="noopener noreferrer">
+                    <Download className="w-4 h-4 mr-2" />
+                    Download Resume
+                  </a>
                 </Button>
               </div>
             </motion.div>

@@ -51,7 +51,7 @@ const HeroSection = () => {
                 <a href="#projects">View Works</a>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <a href="#contact">
+                <a href="https://github.com/ramp906592/Resume/raw/main/RAM_RESUME.pdf" target="_blank" rel="noopener noreferrer">
                   <Download className="w-4 h-4 mr-2" />
                   Resume
                 </a>
