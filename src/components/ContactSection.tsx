@@ -131,7 +131,11 @@ const ContactSection = () => {
               
               <div className="space-y-4">
                 <Button size="lg" className="w-full group" asChild>
-                  <a href="mailto:ramp906592@gmail.com">
+                  <a 
+                    href="https://mail.google.com/mail/?view=cm&to=ramp906592@gmail.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
                     <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
                     Send Me an Email
                   </a>
