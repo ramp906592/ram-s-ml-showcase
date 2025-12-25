@@ -11,8 +11,8 @@ const projects = [
     tech: ["Python", "Scikit-learn", "KNN", "Streamlit"],
     accuracy: "~86%",
     icon: Heart,
-    liveUrl: "#",
-    githubUrl: "https://github.com/ramp906592",
+    liveUrl: "https://heartdiseasdetector.streamlit.app/",
+    githubUrl: "https://github.com/ramp906592/HEART_DISEAS_DETECTOR",
   },
   {
     title: "Email Spam Detection System",
@@ -20,8 +20,8 @@ const projects = [
     tech: ["Python", "NLP", "TF-IDF", "ML Algorithms"],
     accuracy: "High Precision",
     icon: Mail,
-    liveUrl: "#",
-    githubUrl: "https://github.com/ramp906592",
+    liveUrl: "https://emailspamdetector31.streamlit.app/",
+    githubUrl: "https://github.com/ramp906592/EMAIL_SPAM",
   },
   {
     title: "Product Review Sentiment Analysis",
@@ -29,8 +29,8 @@ const projects = [
     tech: ["Python", "NLP", "Text Classification", "Streamlit"],
     accuracy: "Sentiment Prediction",
     icon: Star,
-    liveUrl: "#",
-    githubUrl: "https://github.com/ramp906592",
+    liveUrl: "https://review-sentiment-ai.streamlit.app/",
+    githubUrl: "https://github.com/ramp906592/PRODUCT_REVIEW",
   },
 ];
 
@@ -102,7 +102,7 @@ const ProjectsSection = () => {
 
                 <div className="flex gap-3 mt-auto">
                   <Button size="sm" className="flex-1" asChild>
-                    <a href={project.liveUrl}>
+                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="w-4 h-4 mr-2" />
                       Live Demo
                     </a>
