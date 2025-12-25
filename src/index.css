@@ -45,12 +45,13 @@
   }
 
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Disabled for GSAP smooth scroll */
   }
 
   body {
     @apply bg-background text-foreground antialiased;
     font-family: 'Outfit', sans-serif;
+    overflow-x: hidden;
   }
 
   ::selection {
