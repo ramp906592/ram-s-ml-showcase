@@ -17,7 +17,7 @@ const projects = [
     icon: Heart,
     liveUrl: "https://heartdiseasdetector.streamlit.app/",
     githubUrl: "https://github.com/ramp906592/HEART_DISEAS_DETECTOR",
-    previewImage: heartDiseaseImg,
+    previewImage: productReviewImg,
   },
   {
     title: "Email Spam Detection System",
@@ -37,7 +37,7 @@ const projects = [
     icon: Star,
     liveUrl: "https://review-sentiment-ai.streamlit.app/",
     githubUrl: "https://github.com/ramp906592/PRODUCT_REVIEW",
-    previewImage: productReviewImg,
+    previewImage: heartDiseaseImg,
   },
 ];
 
@@ -45,14 +45,8 @@ const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>, index: number) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    setMousePosition({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+  const handleMouseEnter = (index: number) => {
     setHoveredIndex(index);
   };
 
@@ -88,32 +82,35 @@ const ProjectsSection = () => {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 whileHover={{ y: -6 }}
                 className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300 relative"
-                onMouseMove={(e) => handleMouseMove(e, index)}
+                onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                {/* Preview Image Popup */}
+                {/* Preview Image Popup - Right Side */}
                 <AnimatePresence>
                   {hoveredIndex === index && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.8, y: 10 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute z-50 pointer-events-none"
+                      initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                      animate={{ opacity: 1, scale: 1, x: 0 }}
+                      exit={{ opacity: 0, scale: 0.8, x: -20 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
+                      className="absolute z-50 pointer-events-none hidden lg:block"
                       style={{
-                        left: Math.min(mousePosition.x, 150),
-                        top: mousePosition.y - 180,
+                        right: -280,
+                        top: "50%",
+                        transform: "translateY(-50%)",
                       }}
                     >
                       <div className="relative">
-                        <div className="w-64 h-40 rounded-lg overflow-hidden border-2 border-primary/30 shadow-2xl shadow-primary/20">
+                        <div className="w-64 h-40 rounded-lg overflow-hidden border-2 border-primary/30 shadow-2xl shadow-primary/20 bg-card">
                           <img
                             src={project.previewImage}
                             alt={`${project.title} preview`}
                             className="w-full h-full object-cover object-top"
                           />
                         </div>
-                        <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background/60 to-transparent" />
+                        <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background/40 to-transparent" />
+                        {/* Arrow pointing left */}
+                        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-0 h-0 border-t-8 border-t-transparent border-r-8 border-r-primary/30 border-b-8 border-b-transparent" />
                       </div>
                     </motion.div>
                   )}
