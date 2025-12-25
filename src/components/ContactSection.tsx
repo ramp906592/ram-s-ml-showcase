@@ -70,8 +70,8 @@ const ContactSection = () => {
             >
               {contactInfo.map((item, index) => {
                 const Icon = item.icon;
-                const content = (
-                  <div className="glass-card rounded-xl p-5 flex items-center gap-4 group hover:bg-secondary/30 transition-all duration-300">
+                const CardContent = (
+                  <div className="glass-card rounded-xl p-5 flex items-center gap-4 group hover:bg-secondary/30 transition-all duration-300 cursor-pointer">
                     <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <Icon className="w-5 h-5 text-primary" />
                     </div>
@@ -84,6 +84,9 @@ const ContactSection = () => {
                   </div>
                 );
 
+                const isExternal = item.href?.startsWith("http");
+                const isMailto = item.href?.startsWith("mailto:");
+
                 return (
                   <motion.div
                     key={item.label}
@@ -94,13 +97,18 @@ const ContactSection = () => {
                     {item.href ? (
                       <a
                         href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
-                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                        target={isExternal && !isMailto ? "_blank" : undefined}
+                        rel={isExternal && !isMailto ? "noopener noreferrer" : undefined}
+                        onClick={(e) => {
+                          if (isMailto) {
+                            window.location.href = item.href!;
+                          }
+                        }}
                       >
-                        {content}
+                        {CardContent}
                       </a>
                     ) : (
-                      content
+                      CardContent
                     )}
                   </motion.div>
                 );
