@@ -50,7 +50,7 @@ const Footer = () => {
               <Github className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
             </motion.a>
             <motion.a
-              href="https://linkedin.com/in/ram-prakash-jha"
+              href="https://www.linkedin.com/in/ram-prakash-jha-/"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ scale: 1.1, y: -2 }}
