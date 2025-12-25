@@ -36,16 +36,12 @@ const ContactSection = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="contact" className="py-24 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute bottom-0 right-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[200px]" />
-      <div className="absolute top-0 left-0 w-[400px] h-[400px] bg-accent/5 rounded-full blur-[150px]" />
-
+    <section id="contact" className="py-24 relative">
       <div className="container mx-auto px-6" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block">
@@ -63,16 +59,16 @@ const ContactSection = () => {
           <div className="grid md:grid-cols-2 gap-8">
             {/* Contact Info */}
             <motion.div
-              initial={{ opacity: 0, x: -50 }}
+              initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.2 }}
               className="space-y-4"
             >
               {contactInfo.map((item, index) => {
                 const Icon = item.icon;
                 const CardContent = (
-                  <div className="glass-card rounded-xl p-5 flex items-center gap-4 group hover:bg-secondary/30 transition-all duration-300 cursor-pointer">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="glass-card rounded-xl p-5 flex items-center gap-4 group hover:bg-secondary/40 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors">
                       <Icon className="w-5 h-5 text-primary" />
                     </div>
                     <div>
@@ -85,7 +81,6 @@ const ContactSection = () => {
                 );
 
                 const isExternal = item.href?.startsWith("http");
-                const isMailto = item.href?.startsWith("mailto:");
 
                 return (
                   <motion.div
@@ -97,13 +92,8 @@ const ContactSection = () => {
                     {item.href ? (
                       <a
                         href={item.href}
-                        target={isExternal && !isMailto ? "_blank" : undefined}
-                        rel={isExternal && !isMailto ? "noopener noreferrer" : undefined}
-                        onClick={(e) => {
-                          if (isMailto) {
-                            window.location.href = item.href!;
-                          }
-                        }}
+                        target={isExternal ? "_blank" : undefined}
+                        rel={isExternal ? "noopener noreferrer" : undefined}
                       >
                         {CardContent}
                       </a>
@@ -117,9 +107,9 @@ const ContactSection = () => {
 
             {/* CTA Card */}
             <motion.div
-              initial={{ opacity: 0, x: 50 }}
+              initial={{ opacity: 0, x: 30 }}
               animate={isInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
               className="glass-card gradient-border rounded-2xl p-8 flex flex-col justify-center"
             >
               <h3 className="text-2xl font-semibold mb-4">
@@ -130,20 +120,20 @@ const ContactSection = () => {
               </p>
               
               <div className="space-y-4">
-                <Button size="lg" className="w-full group" asChild>
+                <Button size="lg" className="w-full" asChild>
                   <a 
                     href="https://mail.google.com/mail/?view=cm&to=ramp906592@gmail.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
                   >
-                    <Send className="w-4 h-4 mr-2 group-hover:translate-x-1 transition-transform" />
+                    <Send className="w-4 h-4 mr-2" />
                     Send Me an Email
                   </a>
                 </Button>
                 <Button 
                   size="lg" 
                   variant="outline" 
-                  className="w-full group"
+                  className="w-full"
                   onClick={() => {
                     const link = document.createElement('a');
                     link.href = '/resume.pdf';
@@ -153,7 +143,7 @@ const ContactSection = () => {
                     document.body.removeChild(link);
                   }}
                 >
-                  <Download className="w-4 h-4 mr-2 group-hover:translate-y-1 transition-transform" />
+                  <Download className="w-4 h-4 mr-2" />
                   Download Resume
                 </Button>
               </div>
