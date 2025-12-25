@@ -47,17 +47,32 @@ const ProjectsSection = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [currentImage, setCurrentImage] = useState<string | null>(null);
+  const [isVerticalLayout, setIsVerticalLayout] = useState(false);
 
   useEffect(() => {
+    const checkLayout = () => {
+      // lg breakpoint is 1024px - below this, projects stack vertically
+      setIsVerticalLayout(window.innerWidth < 1024);
+    };
+
+    checkLayout();
+    window.addEventListener("resize", checkLayout);
+    return () => window.removeEventListener("resize", checkLayout);
+  }, []);
+
+  useEffect(() => {
+    if (!isVerticalLayout) return;
+
     const handleMouseMove = (e: MouseEvent) => {
       setMousePos({ x: e.clientX, y: e.clientY });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
+  }, [isVerticalLayout]);
 
   const handleMouseEnter = (index: number) => {
+    if (!isVerticalLayout) return;
     setHoveredIndex(index);
     setCurrentImage(projects[index].previewImage);
   };
@@ -69,9 +84,9 @@ const ProjectsSection = () => {
 
   return (
     <>
-      {/* Floating cursor image */}
+      {/* Floating cursor image - only on vertical layout */}
       <AnimatePresence>
-        {hoveredIndex !== null && currentImage && (
+        {isVerticalLayout && hoveredIndex !== null && currentImage && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
