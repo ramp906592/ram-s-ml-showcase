@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ExternalLink, Github, Heart, Mail, Star } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -45,124 +45,141 @@ const ProjectsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [currentImage, setCurrentImage] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePos({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   const handleMouseEnter = (index: number) => {
     setHoveredIndex(index);
+    setCurrentImage(projects[index].previewImage);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredIndex(null);
+    setCurrentImage(null);
   };
 
   return (
-    <section id="projects" className="py-24 relative overflow-visible">
-      <div className="container mx-auto px-6 overflow-visible" ref={ref}>
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
-        >
-          <span className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block">
-            Featured Work
-          </span>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            My <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            End-to-end machine learning projects showcasing practical applications of AI and data science.
-          </p>
-        </motion.div>
+    <>
+      {/* Floating cursor image */}
+      <AnimatePresence>
+        {hoveredIndex !== null && currentImage && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.8 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            className="fixed z-[9999] pointer-events-none"
+            style={{
+              left: mousePos.x + 20,
+              top: mousePos.y - 100,
+            }}
+          >
+            <div className="relative">
+              <div className="w-72 h-44 rounded-xl overflow-hidden border-2 border-primary/50 shadow-2xl shadow-primary/40 bg-card">
+                <img
+                  src={currentImage}
+                  alt="Project preview"
+                  className="w-full h-full object-cover object-top"
+                />
+              </div>
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-background/30 to-transparent" />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-        <div className="grid lg:grid-cols-3 gap-8 relative overflow-visible pt-44">
-          {projects.map((project, index) => {
-            const Icon = project.icon;
-            
-            return (
-              <motion.div
-                key={project.title}
-                initial={{ opacity: 0, y: 40 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: index * 0.15 }}
-                whileHover={{ y: -6 }}
-                className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300 relative overflow-visible"
-                onMouseEnter={() => handleMouseEnter(index)}
-                onMouseLeave={() => setHoveredIndex(null)}
-              >
-                {/* Preview Image Popup - Top Right */}
-                <AnimatePresence>
-                  {hoveredIndex === index && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.9, y: 10 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                      transition={{ duration: 0.2, ease: "easeOut" }}
-                      className="absolute z-[100] pointer-events-none"
-                      style={{
-                        top: -160,
-                        right: 0,
-                      }}
-                    >
-                      <div className="relative">
-                        <div className="w-72 h-44 rounded-xl overflow-hidden border-2 border-primary/40 shadow-2xl shadow-primary/30 bg-card">
-                          <img
-                            src={project.previewImage}
-                            alt={`${project.title} preview`}
-                            className="w-full h-full object-cover object-top"
-                          />
-                        </div>
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-background/50 to-transparent" />
-                        {/* Arrow pointing down */}
-                        <div className="absolute bottom-0 right-8 translate-y-full w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-primary/40" />
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+      <section id="projects" className="py-24 relative">
+        <div className="container mx-auto px-6" ref={ref}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-16"
+          >
+            <span className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block">
+              Featured Work
+            </span>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              My <span className="gradient-text">Projects</span>
+            </h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">
+              End-to-end machine learning projects showcasing practical applications of AI and data science.
+            </p>
+          </motion.div>
 
-                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                  <Icon className="w-7 h-7 text-primary" />
-                </div>
+          <div className="grid lg:grid-cols-3 gap-8">
+            {projects.map((project, index) => {
+              const Icon = project.icon;
+              
+              return (
+                <motion.div
+                  key={project.title}
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: index * 0.15 }}
+                  whileHover={{ y: -6 }}
+                  className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
+                >
+                  <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                    <Icon className="w-7 h-7 text-primary" />
+                  </div>
 
-                <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
-                  {project.title}
-                </h3>
-                
-                <p className="text-muted-foreground text-sm mb-4 flex-grow">
-                  {project.description}
-                </p>
+                  <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                    {project.title}
+                  </h3>
+                  
+                  <p className="text-muted-foreground text-sm mb-4 flex-grow">
+                    {project.description}
+                  </p>
 
-                <div className="mb-4">
-                  <span className="inline-block px-3 py-1 rounded-md bg-primary/10 text-primary text-sm font-medium border border-primary/20">
-                    {project.accuracy}
-                  </span>
-                </div>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {project.tech.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 rounded-md bg-secondary text-muted-foreground text-xs font-medium"
-                    >
-                      {tech}
+                  <div className="mb-4">
+                    <span className="inline-block px-3 py-1 rounded-md bg-primary/10 text-primary text-sm font-medium border border-primary/20">
+                      {project.accuracy}
                     </span>
-                  ))}
-                </div>
+                  </div>
 
-                <div className="flex gap-3 mt-auto">
-                  <Button size="sm" className="flex-1" asChild>
-                    <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                      <ExternalLink className="w-4 h-4 mr-2" />
-                      Live Demo
-                    </a>
-                  </Button>
-                  <Button size="sm" variant="outline" asChild>
-                    <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                      <Github className="w-4 h-4" />
-                    </a>
-                  </Button>
-                </div>
-              </motion.div>
-            );
-          })}
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.map((tech) => (
+                      <span
+                        key={tech}
+                        className="px-2 py-1 rounded-md bg-secondary text-muted-foreground text-xs font-medium"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex gap-3 mt-auto">
+                    <Button size="sm" className="flex-1" asChild>
+                      <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4 mr-2" />
+                        Live Demo
+                      </a>
+                    </Button>
+                    <Button size="sm" variant="outline" asChild>
+                      <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                      </a>
+                    </Button>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 
