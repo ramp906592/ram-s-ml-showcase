@@ -25,15 +25,12 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-1/2 left-0 w-96 h-96 bg-primary/5 rounded-full blur-[150px]" />
-      
+    <section id="about" className="py-24 relative">
       <div className="container mx-auto px-6" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
           <span className="text-primary text-sm font-medium tracking-wider uppercase mb-4 block">
@@ -47,20 +44,20 @@ const AboutSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* About Text */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
             className="space-y-6"
           >
-            <div className="glass-card gradient-border rounded-2xl p-8">
+            <div className="glass-card gradient-border rounded-xl p-8">
               <p className="text-lg text-muted-foreground leading-relaxed">
                 I am a <span className="text-foreground font-medium">Computer Science undergraduate</span> aspiring to become a{" "}
                 <span className="text-primary">Software Development Engineer</span> and{" "}
-                <span className="text-accent">Data Science professional</span> with strong experience in Machine Learning, NLP, and deploying real-world applications.
+                <span className="text-primary">Data Science professional</span> with strong experience in Machine Learning, NLP, and deploying real-world applications.
               </p>
             </div>
 
-            <div className="glass-card rounded-2xl p-8">
+            <div className="glass-card rounded-xl p-8">
               <div className="flex items-center gap-3 mb-4">
                 <MapPin className="w-5 h-5 text-primary" />
                 <span className="text-foreground">Bhubaneswar, Odisha, India</span>
@@ -73,9 +70,9 @@ const AboutSection = () => {
 
           {/* Education */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
             className="space-y-4"
           >
             <h3 className="text-2xl font-semibold mb-6 flex items-center gap-3">
@@ -88,7 +85,7 @@ const AboutSection = () => {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.5 + index * 0.1 }}
+                transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
                 className="glass-card rounded-xl p-6 hover:bg-secondary/50 transition-all duration-300 group"
               >
                 <h4 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
@@ -106,7 +103,7 @@ const AboutSection = () => {
                   </span>
                 </div>
                 <div className="mt-3">
-                  <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium">
+                  <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
                     {edu.grade}
                   </span>
                 </div>

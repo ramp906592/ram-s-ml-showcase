@@ -5,81 +5,62 @@ import { Button } from "./ui/button";
 const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Simple gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-secondary/20" />
+      {/* Geometric background pattern */}
+      <div className="absolute inset-0 bg-gradient-to-br from-background via-secondary/30 to-background" />
       
-      {/* Subtle grid */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(220_15%_15%/0.3)_1px,transparent_1px),linear-gradient(to_bottom,hsl(220_15%_15%/0.3)_1px,transparent_1px)] bg-[size:80px_80px]" />
+      {/* Diagonal geometric shapes */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/5 rotate-45 transform -translate-x-1/2" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-primary/5 rotate-12" />
+        </div>
+      </div>
 
-      {/* Single subtle glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-primary/5 rounded-full blur-[120px]" />
+      {/* Subtle gradient overlay */}
+      <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-background to-transparent" />
 
       <div className="container relative z-10 mx-auto px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          {/* Badge */}
+        <div className="max-w-4xl mx-auto">
+          {/* Main Content */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/5 text-sm font-medium text-primary">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              Available for opportunities
-            </span>
-          </motion.div>
-
-          {/* Name */}
-          <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 tracking-tight"
+            transition={{ duration: 0.6 }}
           >
-            <span className="text-foreground">Ram Prakash</span>{" "}
-            <span className="gradient-text">Jha</span>
-          </motion.h1>
+            <p className="text-primary text-lg md:text-xl mb-4 font-medium">
+              Hi There, I Am
+            </p>
+            
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-4 tracking-tight">
+              <span className="text-foreground">Ram Prakash</span>{" "}
+              <span className="gradient-text">Jha</span>
+            </h1>
 
-          {/* Headline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-xl md:text-2xl text-muted-foreground mb-6 font-light"
-          >
-            Building Intelligent Solutions with{" "}
-            <span className="text-primary">Machine Learning</span> &{" "}
-            <span className="text-primary">Data Science</span>
-          </motion.p>
+            <h2 className="text-2xl md:text-3xl lg:text-4xl text-muted-foreground mb-8 font-light">
+              Machine Learning Engineer
+            </h2>
 
-          {/* Subtitle */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="text-muted-foreground mb-10 max-w-2xl mx-auto"
-          >
-            Computer Science undergraduate at KIIT, passionate about turning data into actionable insights
-            and building end-to-end ML solutions.
-          </motion.p>
+            <p className="text-muted-foreground text-lg mb-10 max-w-xl">
+              Computer Science undergraduate at KIIT, passionate about turning data into actionable insights and building end-to-end ML solutions.
+            </p>
+          </motion.div>
 
           {/* CTA Buttons */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="flex flex-wrap items-center justify-center gap-4 mb-12"
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex flex-wrap items-center gap-4 mb-12"
           >
             <Button size="lg" asChild>
               <a href="#projects">
-                View Projects
-                <ArrowDown className="w-4 h-4 ml-2" />
+                View Works
               </a>
             </Button>
             <Button size="lg" variant="outline" asChild>
               <a href="#contact">
                 <Download className="w-4 h-4 mr-2" />
-                Download Resume
+                Resume
               </a>
             </Button>
           </motion.div>
@@ -88,8 +69,8 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.5 }}
-            className="flex items-center justify-center gap-4"
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="flex items-center gap-4"
           >
             {[
               { icon: Github, href: "https://github.com/ramp906592", label: "GitHub" },
@@ -101,8 +82,8 @@ const HeroSection = () => {
                 href={social.href}
                 target={social.href.startsWith("http") ? "_blank" : undefined}
                 rel={social.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                className="p-3 rounded-full border border-border bg-secondary/50 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
-                whileHover={{ scale: 1.1 }}
+                className="p-3 rounded-lg border border-border bg-secondary/50 hover:bg-primary/10 hover:border-primary/50 transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
                 <social.icon className="w-5 h-5 text-muted-foreground hover:text-primary transition-colors" />
@@ -118,8 +99,8 @@ const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, y: [0, 8, 0] }}
         transition={{ 
-          opacity: { delay: 1, duration: 0.5 },
-          y: { duration: 2, repeat: Infinity, delay: 1 }
+          opacity: { delay: 0.8, duration: 0.5 },
+          y: { duration: 2, repeat: Infinity, delay: 0.8 }
         }}
       >
         <div className="flex flex-col items-center gap-2">

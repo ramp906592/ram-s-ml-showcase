@@ -68,15 +68,13 @@ const ProjectsSection = () => {
                 initial={{ opacity: 0, y: 40 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
-                whileHover={{ y: -8 }}
-                className="glass-card gradient-border rounded-2xl p-6 flex flex-col group hover:bg-secondary/40 transition-all duration-300"
+                whileHover={{ y: -6 }}
+                className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300"
               >
-                {/* Icon */}
-                <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
+                <div className="w-14 h-14 rounded-lg bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
                   <Icon className="w-7 h-7 text-primary" />
                 </div>
 
-                {/* Content */}
                 <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {project.title}
                 </h3>
@@ -85,14 +83,12 @@ const ProjectsSection = () => {
                   {project.description}
                 </p>
 
-                {/* Accuracy Badge */}
                 <div className="mb-4">
-                  <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-medium border border-primary/20">
+                  <span className="inline-block px-3 py-1 rounded-md bg-primary/10 text-primary text-sm font-medium border border-primary/20">
                     {project.accuracy}
                   </span>
                 </div>
 
-                {/* Tech Stack */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {project.tech.map((tech) => (
                     <span
@@ -104,7 +100,6 @@ const ProjectsSection = () => {
                   ))}
                 </div>
 
-                {/* Buttons */}
                 <div className="flex gap-3 mt-auto">
                   <Button size="sm" className="flex-1" asChild>
                     <a href={project.liveUrl}>
