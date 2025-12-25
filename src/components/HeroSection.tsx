@@ -129,7 +129,7 @@ const HeroSection = () => {
               <Github className="w-5 h-5 text-muted-foreground group-hover:text-primary transition-colors" />
             </a>
             <a
-              href="https://linkedin.com/in/ram-prakash-jha"
+              href="https://www.linkedin.com/in/ram-prakash-jha-/"
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 rounded-full glass-card hover:bg-primary/10 transition-all duration-300 hover:scale-110 group"

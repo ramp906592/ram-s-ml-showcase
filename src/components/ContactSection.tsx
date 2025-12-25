@@ -21,7 +21,7 @@ const contactInfo = [
     icon: Linkedin,
     label: "LinkedIn",
     value: "ram-prakash-jha",
-    href: "https://linkedin.com/in/ram-prakash-jha",
+    href: "https://www.linkedin.com/in/ram-prakash-jha-/",
   },
   {
     icon: MapPin,
