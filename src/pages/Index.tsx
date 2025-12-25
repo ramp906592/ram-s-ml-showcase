@@ -11,6 +11,7 @@ import ExperienceSection from "@/components/ExperienceSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import FloatingSocials from "@/components/FloatingSocials";
+import CustomCursor from "@/components/CustomCursor";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -83,6 +84,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+      <CustomCursor />
       <Navigation />
       <main>
         <HeroSection />
