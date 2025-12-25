@@ -51,8 +51,8 @@ const ProjectsSection = () => {
   };
 
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="container mx-auto px-6" ref={ref}>
+    <section id="projects" className="py-24 relative overflow-visible">
+      <div className="container mx-auto px-6 overflow-visible" ref={ref}>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -70,7 +70,7 @@ const ProjectsSection = () => {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-3 gap-8">
+        <div className="grid lg:grid-cols-3 gap-8 relative overflow-visible pt-44">
           {projects.map((project, index) => {
             const Icon = project.icon;
             
@@ -81,36 +81,35 @@ const ProjectsSection = () => {
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 whileHover={{ y: -6 }}
-                className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300 relative"
+                className="glass-card gradient-border rounded-xl p-6 flex flex-col group hover:bg-secondary/50 transition-all duration-300 relative overflow-visible"
                 onMouseEnter={() => handleMouseEnter(index)}
                 onMouseLeave={() => setHoveredIndex(null)}
               >
-                {/* Preview Image Popup - Right Side */}
+                {/* Preview Image Popup - Top Right */}
                 <AnimatePresence>
                   {hoveredIndex === index && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.8, x: -20 }}
-                      animate={{ opacity: 1, scale: 1, x: 0 }}
-                      exit={{ opacity: 0, scale: 0.8, x: -20 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
-                      className="absolute z-50 pointer-events-none hidden lg:block"
+                      initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      exit={{ opacity: 0, scale: 0.9, y: 10 }}
+                      transition={{ duration: 0.2, ease: "easeOut" }}
+                      className="absolute z-[100] pointer-events-none"
                       style={{
-                        right: -280,
-                        top: "50%",
-                        transform: "translateY(-50%)",
+                        top: -160,
+                        right: 0,
                       }}
                     >
                       <div className="relative">
-                        <div className="w-64 h-40 rounded-lg overflow-hidden border-2 border-primary/30 shadow-2xl shadow-primary/20 bg-card">
+                        <div className="w-72 h-44 rounded-xl overflow-hidden border-2 border-primary/40 shadow-2xl shadow-primary/30 bg-card">
                           <img
                             src={project.previewImage}
                             alt={`${project.title} preview`}
                             className="w-full h-full object-cover object-top"
                           />
                         </div>
-                        <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-background/40 to-transparent" />
-                        {/* Arrow pointing left */}
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-2 w-0 h-0 border-t-8 border-t-transparent border-r-8 border-r-primary/30 border-b-8 border-b-transparent" />
+                        <div className="absolute inset-0 rounded-xl bg-gradient-to-t from-background/50 to-transparent" />
+                        {/* Arrow pointing down */}
+                        <div className="absolute bottom-0 right-8 translate-y-full w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-t-8 border-t-primary/40" />
                       </div>
                     </motion.div>
                   )}
