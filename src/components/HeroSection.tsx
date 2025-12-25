@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { ArrowDown, Github, Linkedin, Mail, Download } from "lucide-react";
 import { Button } from "./ui/button";
+import MagneticButton from "./MagneticButton";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -176,24 +177,28 @@ const HeroSection = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-4 mb-8">
-              <Button size="lg" asChild className="hero-cta opacity-0">
-                <a href="#projects">View Works</a>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                asChild
-                className="hero-cta opacity-0"
-              >
-                <a
-                  href="https://github.com/ramp906592/Resume/raw/main/RAM_RESUME.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <MagneticButton strength={0.4}>
+                <Button size="lg" asChild className="hero-cta opacity-0">
+                  <a href="#projects">View Works</a>
+                </Button>
+              </MagneticButton>
+              <MagneticButton strength={0.4}>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  asChild
+                  className="hero-cta opacity-0"
                 >
-                  <Download className="w-4 h-4 mr-2" />
-                  Resume
-                </a>
-              </Button>
+                  <a
+                    href="https://github.com/ramp906592/Resume/raw/main/RAM_RESUME.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Download className="w-4 h-4 mr-2" />
+                    Resume
+                  </a>
+                </Button>
+              </MagneticButton>
             </div>
 
             {/* Social Links */}

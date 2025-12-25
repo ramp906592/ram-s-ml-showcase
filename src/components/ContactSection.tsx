@@ -3,6 +3,7 @@ import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { Mail, Github, Linkedin, MapPin, Send, Download } from "lucide-react";
 import { Button } from "./ui/button";
+import MagneticButton from "./MagneticButton";
 
 const contactInfo = [
   {
@@ -118,22 +119,26 @@ const ContactSection = () => {
               </p>
               
               <div className="space-y-4">
-                <Button size="lg" className="w-full" asChild>
-                  <a 
-                    href="https://mail.google.com/mail/?view=cm&to=ramp906592@gmail.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Me an Email
-                  </a>
-                </Button>
-                <Button size="lg" variant="outline" className="w-full" asChild>
-                  <a href="https://github.com/ramp906592/Resume/raw/main/RAM_RESUME.pdf" target="_blank" rel="noopener noreferrer">
-                    <Download className="w-4 h-4 mr-2" />
-                    Download Resume
-                  </a>
-                </Button>
+                <MagneticButton strength={0.3} className="w-full">
+                  <Button size="lg" className="w-full" asChild>
+                    <a 
+                      href="https://mail.google.com/mail/?view=cm&to=ramp906592@gmail.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                    >
+                      <Send className="w-4 h-4 mr-2" />
+                      Send Me an Email
+                    </a>
+                  </Button>
+                </MagneticButton>
+                <MagneticButton strength={0.3} className="w-full">
+                  <Button size="lg" variant="outline" className="w-full" asChild>
+                    <a href="https://github.com/ramp906592/Resume/raw/main/RAM_RESUME.pdf" target="_blank" rel="noopener noreferrer">
+                      <Download className="w-4 h-4 mr-2" />
+                      Download Resume
+                    </a>
+                  </Button>
+                </MagneticButton>
               </div>
             </motion.div>
           </div>
