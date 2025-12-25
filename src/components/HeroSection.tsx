@@ -1,14 +1,26 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
 import { ArrowDown, Github, Linkedin, Mail, Download } from "lucide-react";
 import { Button } from "./ui/button";
+
+gsap.registerPlugin(TextPlugin);
+
+const titles = [
+  "Machine Learning Engineer",
+  "Data Scientist",
+  "AI Enthusiast",
+  "Python Developer",
+  "NLP Specialist",
+];
 
 const HeroSection = () => {
   const heroRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
-  const subtitleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLSpanElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [currentTitleIndex, setCurrentTitleIndex] = useState(0);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -65,6 +77,55 @@ const HeroSection = () => {
     return () => ctx.revert();
   }, []);
 
+  // Typing animation effect
+  useEffect(() => {
+    if (!subtitleRef.current) return;
+
+    const typeTitle = (index: number) => {
+      const title = titles[index];
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setTimeout(() => {
+            const nextIndex = (index + 1) % titles.length;
+            setCurrentTitleIndex(nextIndex);
+            typeTitle(nextIndex);
+          }, 2000);
+        },
+      });
+
+      // Type out the text
+      tl.to(subtitleRef.current, {
+        duration: title.length * 0.06,
+        text: {
+          value: title,
+          delimiter: "",
+        },
+        ease: "none",
+      })
+        // Pause at the end
+        .to({}, { duration: 1.5 })
+        // Delete the text
+        .to(subtitleRef.current, {
+          duration: title.length * 0.03,
+          text: {
+            value: "",
+            delimiter: "",
+          },
+          ease: "none",
+        });
+    };
+
+    // Start after initial animations complete
+    const timeout = setTimeout(() => {
+      if (subtitleRef.current) {
+        subtitleRef.current.textContent = "";
+        typeTitle(0);
+      }
+    }, 1800);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   return (
     <section
       ref={heroRef}
@@ -100,11 +161,11 @@ const HeroSection = () => {
               <span className="gradient-text">Jha</span>
             </h1>
 
-            <h2
-              ref={subtitleRef}
-              className="hero-title text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6 font-light opacity-0"
-            >
-              Machine Learning Engineer
+            <h2 className="hero-title text-xl md:text-2xl lg:text-3xl text-muted-foreground mb-6 font-light opacity-0 h-10 flex items-center justify-center">
+              <span ref={subtitleRef} className="text-primary font-medium">
+                Machine Learning Engineer
+              </span>
+              <span className="typing-cursor ml-1 w-0.5 h-6 md:h-8 bg-primary animate-pulse" />
             </h2>
 
             <p className="hero-bio text-muted-foreground mb-8 max-w-lg mx-auto opacity-0">
